@@ -1,6 +1,9 @@
- import { audio } from '@kit.AudioKit';
+import { window } from '@kit.ArkUI';
+import { audio } from '@kit.AudioKit';
 import { a2dp, baseProfile, connection, constant } from '@kit.ConnectivityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
+
+
 
 const DOMAIN = 0x3200;
 const TAG = 'AudioInfoMonitor';
@@ -13,6 +16,11 @@ interface OutputDeviceTabItem {
 @Entry
 @Component
 struct Index {
+  // 1. 定义一个变量来存高度
+  @State statusBarHeight: number = 0;
+
+  // 2. 在插件加载时计算高度
+
   private readonly audioManager: audio.AudioManager = audio.getAudioManager();
   private readonly streamManager: audio.AudioStreamManager = this.audioManager.getStreamManager();
   private readonly routingManager: audio.AudioRoutingManager = this.audioManager.getRoutingManager();
@@ -58,6 +66,14 @@ struct Index {
     this.initBluetoothProfile();
     this.refreshAll();
     this.startPolling();
+    const uiContext = this.getUIContext();
+    window.getLastWindow(uiContext.getHostContext(), (err, data) => {
+      if (!err) {
+        let avoidArea = data.getWindowAvoidArea(window.AvoidAreaType.TYPE_SYSTEM);
+        // 使用 uiContext 的 px2vp 替代全局 px2vp
+        this.statusBarHeight = uiContext.px2vp(avoidArea.topRect.height);
+      }
+    });
   }
 
   aboutToDisappear(): void {
@@ -637,8 +653,7 @@ struct Index {
       Column({ space: 8 }) {
         this.infoLine('应用简介', 'AudioInfo是一个能在Harmony OS NEXT上读取音频流信息的小工具，支持多种设备信息的读取');
         this.infoLine('版本信息', 'v1.0.0');
-        this.infoLine('联系方式', 'me@dgtea.site');
-        this.infoLine('开源仓库', '');
+        this.infoLine('开源仓库', 'https://github.com/bd7pzx/audioinfo');
         this.infoLine('开源许可', 'GPL V3');
       }
       .padding(12)
@@ -653,6 +668,7 @@ struct Index {
   build() {
     Scroll() {
       Column({ space: 14 }) {
+        Row().width('100%').height(this.statusBarHeight)
         Text('AudioInfo')
           .fontSize(24)
           .fontWeight(FontWeight.Bold)
@@ -718,6 +734,7 @@ struct Index {
     .backgroundColor($r('app.color.page_background'))
     .height('100%')
     .width('100%')
+    .expandSafeArea([0], [0])
     .bindSheet(this.isAboutSheetVisible, this.aboutSheetContent(), {
       preferType: SheetType.BOTTOM,
       height: SheetSize.MEDIUM,

@@ -22,6 +22,12 @@ export default class EntryAbility extends UIAbility {
     // Main window is created, set main page for this ability
     hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
     this.configureImmersiveWindow(windowStage);
+    try {
+      let windowClass = windowStage.getMainWindowSync();
+      windowClass.setWindowLayoutFullScreen(true);
+    } catch (exception) {
+      console.error('Failed to set full screen. Cause: ' + JSON.stringify(exception));
+    }
 
     windowStage.loadContent('pages/Index', (err) => {
       if (err.code) {

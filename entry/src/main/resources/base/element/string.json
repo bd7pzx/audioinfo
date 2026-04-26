@@ -1,0 +1,28 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "AudioInfo"
+    },
+    {
+      "name": "permission_use_bluetooth_reason",
+      "value": "用于订阅蓝牙音频设备变化"
+    },
+    {
+      "name": "permission_access_bluetooth_reason",
+      "value": "用于读取蓝牙A2DP连接和播放状态"
+    },
+    {
+      "name": "permission_access_nearlink_reason",
+      "value": "用于识别星闪音频输出链路"
+    }
+  ]
+}

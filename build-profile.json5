@@ -1,6 +1,20 @@
 {
   "app": {
-    "signingConfigs": [],
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "storeFile": "C:/Users/me/.ohos/config/default_audioinfo_Uo20njTfztuQMqmjTWeye-Fiw4bh2UKhag0sujYIq9k=.p12",
+          "storePassword": "0000001BAAA66E3C0A3CD2D07AABA64A940283823B22BE666F9C3DD24A2D0DB9EC9563AA3DB620BC79D5D9",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001B5E22B1EAF20B521FB47B69315F73EB4A9EFF93DF7EFA9007830021512B5CCDE01F68B5E17966D2",
+          "signAlg": "SHA256withECDSA",
+          "profile": "C:/Users/me/Downloads/AudioInfoReleaseRelease.p7b",
+          "certpath": "C:\\Users\\me\\Downloads\\audioinfo.cer"
+        }
+      }
+    ],
     "products": [
       {
         "name": "default",
@@ -18,7 +32,7 @@
     ],
     "buildModeSet": [
       {
-        "name": "debug",
+        "name": "release",
       },
       {
         "name": "release"
